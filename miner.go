@@ -25,8 +25,8 @@ type Miner struct {
 	minerID           int
 	hashRateReports   chan *HashRateReport
 	miningWorkChannel chan *MiningWork
+	solutionChannel   chan []byte
 	GlobalItemSize    int
-	siad              HeaderReporter
 }
 
 func (miner *Miner) mine() {
@@ -127,12 +127,7 @@ func (miner *Miner) mine() {
 			for i := 0; i < 8; i++ {
 				header[i+32] = nonceOut[i]
 			}
-			if err = miner.siad.SubmitHeader(header); err != nil {
-				log.Println(miner.minerID, "- Error submitting block -", err)
-			}
-			log.Println("Work header:", work.Header)
-			log.Println("Offset:", work.Offset)
-			log.Println("Submitted header:", header)
+			miner.solutionChannel <- header
 
 			//Clear the output since it is dirty now
 			nonceOut = make([]byte, 8, 8)
