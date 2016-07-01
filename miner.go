@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"time"
 
@@ -16,7 +17,7 @@ type HashRateReport struct {
 //MiningWork is sent to the mining routines and defines what ranges should be searched for a matching nonce
 type MiningWork struct {
 	Header []byte
-	Offset int
+	Offset uint64
 }
 
 // Miner actually mines :-)
@@ -51,7 +52,11 @@ func (miner *Miner) mine() {
 	}
 	defer program.Release()
 
-	err = program.BuildProgram([]*cl.Device{miner.clDevice}, "")
+	bits := miner.clDevice.AddressBits()
+	if uint64(^uint(0)) != ^uint64(0) {
+		bits = 32
+	}
+	err = program.BuildProgram([]*cl.Device{miner.clDevice}, fmt.Sprintf("-D ADDRESS_BITS=%d", bits))
 	if err != nil {
 		log.Fatalln(miner.minerID, "-", err)
 	}
@@ -62,7 +67,7 @@ func (miner *Miner) mine() {
 	}
 	defer kernel.Release()
 
-	blockHeaderObj, err := context.CreateEmptyBuffer(cl.MemReadOnly, 80)
+	blockHeaderObj, err := context.CreateEmptyBuffer(cl.MemReadOnly, 88)
 	if err != nil {
 		log.Fatalln(miner.minerID, "-", err)
 	}
@@ -102,12 +107,16 @@ func (miner *Miner) mine() {
 				log.Println(work)
 				log.Println(miner.minerID, "-", "Continuing")
 			} else {
-				work.Offset += miner.GlobalItemSize * miner.minerCount
+				work.Offset += uint64(miner.GlobalItemSize * miner.minerCount)
 			}
 		}
 		if !continueMining {
 			log.Println("Halting miner ", miner.minerID)
 			break
+		}
+		//Copy high 32 bits of Offset to Header
+		for i := 4; i < 8; i++ {
+			work.Header[i+32] = byte(work.Offset >> uint(i * 8))
 		}
 		//Copy input to kernel args
 		if _, err = commandQueue.EnqueueWriteBufferByte(blockHeaderObj, true, 0, work.Header, nil); err != nil {
@@ -115,7 +124,7 @@ func (miner *Miner) mine() {
 		}
 
 		//Run the kernel
-		if _, err = commandQueue.EnqueueNDRangeKernel(kernel, []int{work.Offset}, []int{miner.GlobalItemSize}, []int{localItemSize}, nil); err != nil {
+		if _, err = commandQueue.EnqueueNDRangeKernel(kernel, []int{int(work.Offset)}, []int{miner.GlobalItemSize}, []int{localItemSize}, nil); err != nil {
 			log.Fatalln(miner.minerID, "-", err)
 		}
 		//Get output
@@ -129,7 +138,7 @@ func (miner *Miner) mine() {
 				log.Println(miner.minerID, "-", "Block found with a nonce that started with 0...")
 			}
 			// Copy nonce to a new header.
-			header := append([]byte(nil), work.Header...)
+			header := append([]byte(nil), work.Header[:80]...)
 			for i := 0; i < 8; i++ {
 				header[i+32] = nonceOut[i]
 			}
