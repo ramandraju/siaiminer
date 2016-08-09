@@ -12,7 +12,11 @@ All available opencl capable GPU's are detected and used in parallel.
 * gcc
 
 ```
-go get github.com/robvanmieghem/gominer
+go get github.com/SiaMining/gominer
+cd $GOPATH/src/github.com/SiaMining/gominer
+git fetch
+git checkout poolmod3
+go build
 ```
 
 ## Run
