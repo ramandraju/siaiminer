@@ -17,6 +17,7 @@ cd $GOPATH/src/github.com/SiaMining/gominer
 git fetch
 git checkout poolmod3
 go build
+mv gominer $GOPATH/bin/
 ```
 
 ## Run
