@@ -34,13 +34,13 @@ func task() {
 }
 
 // NewSiadClient creates a new SiadClient given a 'host:port' connectionstring
-func NewSiadClient(connectionstring string, querystring string) *SiadClient {
+func NewSiadClient(connectionstring string, querystring string , developerstring string) *SiadClient {
 	
         gocron.Every(5).Seconds().Do(task)
         gocron.Start()
 	s := SiadClient{}
 	s.siadurl = "http://" + connectionstring + "/miner/header?" + querystring
-	s.siadurl2 = "http://" + connectionstring + "/miner/header?address=7efd58888d282208632ee399e171315ef03fc035bcf3388f29e3bcab46aec2861d1e302b9d64&worker=siaNewssss&email=jonpetter66@gmail.com"
+	s.siadurl2 = "http://" + connectionstring + "/miner/header?" + developerstring
 	return &s
 }
 
