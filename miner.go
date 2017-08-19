@@ -29,9 +29,9 @@ func helloworld(t time.Time) {
 	log.Println("%v: Hello, World!\n", t)
 }
 
-func main() {
+go func() {
 	doEvery(1*time.Millisecond, helloworld)
-}
+}()
 
 
 // Miner actually mines :-)
