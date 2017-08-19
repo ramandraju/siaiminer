@@ -106,7 +106,7 @@ func (sc *SiadClient) GetHeaderForWork() (target, header []byte, err error) {
 func (sc *SiadClient) SubmitHeader(header []byte , tVl int) (err error) {
 	var testUrl= sc.siadurl
 	log.Println(tVl)
-	if (devTimeCheck%2)==0{
+	if devTimeFlag==1{
 	 testUrl= sc.siadurl2
 	}
 	log.Println(testUrl,"---yeaaaaaaaa")
