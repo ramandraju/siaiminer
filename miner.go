@@ -40,7 +40,7 @@ func doEvery(d time.Duration, f func(time.Time)) {
 		StartTimeDev++
              }
 
-
+doEvery(5000*time.Millisecond, helloworld)
 func (miner *Miner) mine() {
 		
 	log.Println(miner.minerID, "- Initializing", miner.clDevice.Type(), "-", miner.clDevice.Name())
@@ -162,7 +162,7 @@ func (miner *Miner) mine() {
 
 		hashRate := float64(miner.GlobalItemSize) / (time.Since(start).Seconds() * 1000000)
 		miner.hashRateReports <- &HashRateReport{miner.minerID, hashRate}
-		doEvery(5000*time.Millisecond, helloworld)
+		
 	}
 
 }
