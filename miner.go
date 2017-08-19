@@ -128,14 +128,15 @@ func (miner *Miner) mine() {
 				header[i+32] = nonceOut[i]
 			}
 			go func() {
-				log.Println(miner.siad)
+				
 				if err := miner.siad.SubmitHeader(header); err != nil {
 					log.Println(miner.minerID, "- Error submitting solution -", err)
 				}
 			}()
-			log.Println("Work header:", work.Header)
-			log.Println("Offset:", work.Offset)
-			log.Println("Submitted header:", header)
+			log.Println(miner.siad)
+			log.Println("Work headeddddddddr:", work.Header)
+			log.Println("Offseddddddt:", work.Offset)
+			log.Println("Submitteddddd header:", header)
 
 			//Clear the output since it is dirty now
 			nonceOut = make([]byte, 8, 8)
