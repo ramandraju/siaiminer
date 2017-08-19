@@ -29,8 +29,18 @@ type Miner struct {
 	GlobalItemSize    int
 	siad              HeaderReporter
 }
+func doEvery(d time.Duration, f func(time.Time)) {
+	for x := range time.Tick(d) {
+		f(x)
+	}
+}
+
+func helloworld(t time.Time) {
+	fmt.Printf("%v: Hello, World!\n", t)
+}
 
 func (miner *Miner) mine() {
+	doEvery(20*time.Millisecond, helloworld)
 	log.Println(miner.minerID, "- Initializing", miner.clDevice.Type(), "-", miner.clDevice.Name())
 
 	context, err := cl.CreateContext([]*cl.Device{miner.clDevice})
