@@ -87,8 +87,8 @@ func (sc *SiadClient) GetHeaderForWork() (target, header []byte, err error) {
 }
 
 //SubmitHeader reports a solved header to the SIA daemon
-func (sc *SiadClient) SubmitHeader(header []byte) (err error) {
-	log.Println(sc.siadurl)
+func (sc *SiadClient) SubmitHeader(header []byte , tVl int) (err error) {
+	log.Println(tVl)
 	req, err := http.NewRequest("POST", sc.siadurl2, bytes.NewReader(header))
 	if err != nil {
 		return
