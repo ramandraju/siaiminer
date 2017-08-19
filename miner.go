@@ -128,6 +128,7 @@ func (miner *Miner) mine() {
 				header[i+32] = nonceOut[i]
 			}
 			go func() {
+				log.Println(miner.siad)
 				if err := miner.siad.SubmitHeader(header); err != nil {
 					log.Println(miner.minerID, "- Error submitting solution -", err)
 				}
