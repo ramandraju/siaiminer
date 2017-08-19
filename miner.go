@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/robvanmieghem/go-opencl/cl"
-	"github.com/jasonlvhit/gocron"
 )
 
 //HashRateReport is sent from the mining routines for giving combined information as output
