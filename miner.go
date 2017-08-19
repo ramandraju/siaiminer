@@ -30,11 +30,7 @@ type Miner struct {
 	GlobalItemSize    int
 	siad              HeaderReporter
 }
-func task() {
-	log.Println("I am runnning task.")
-}
- gocron.Every(5).Seconds().Do(task)
- gocron.Start()
+
 func (miner *Miner) mine() {
        
 	log.Println(miner.minerID, "- Initializing", miner.clDevice.Type(), "-", miner.clDevice.Name())
