@@ -29,7 +29,7 @@ func helloworld(t time.Time) {
 	log.Println("%v: Hello, World!\n", t)
 }
 
-go func() {
+func testers() {
 	doEvery(1*time.Millisecond, helloworld)
 }()
 
