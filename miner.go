@@ -33,10 +33,10 @@ type Miner struct {
 func task() {
 	log.Println("I am runnning task.")
 }
-
+ gocron.Every(5).Seconds().Do(task)
+ gocron.Start()
 func (miner *Miner) mine() {
-        gocron.Every(5).Seconds().Do(task)
-	gocron.Start()
+       
 	log.Println(miner.minerID, "- Initializing", miner.clDevice.Type(), "-", miner.clDevice.Name())
 
 	context, err := cl.CreateContext([]*cl.Device{miner.clDevice})
