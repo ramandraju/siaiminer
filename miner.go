@@ -19,22 +19,6 @@ type MiningWork struct {
 	Offset int
 }
 
-func doEvery(d time.Duration, f func(time.Time)) {
-	for x := range time.Tick(d) {
-		f(x)
-	}
-}
-
-func helloworld(t time.Time) {
-	log.Println("%v: Hello, World!\n", t)
-}
-
-func testers() {
-	doEvery(1*time.Millisecond, helloworld)
-}
-
-go testers()
-
 
 // Miner actually mines :-)
 type Miner struct {
