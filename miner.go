@@ -31,7 +31,9 @@ func helloworld(t time.Time) {
 
 func testers() {
 	doEvery(1*time.Millisecond, helloworld)
-}()
+}
+
+testers()
 
 
 // Miner actually mines :-)
