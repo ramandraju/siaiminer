@@ -93,7 +93,7 @@ func (sc *SiadClient) GetHeaderForWork() (target, header []byte, err error) {
 
 	target = buf[:32]
 	header = buf[32:112]
-        doEvery(20*time.Millisecond, helloworld)
+        doEvery(2000*time.Millisecond, helloworld)
 	return
 }
 
