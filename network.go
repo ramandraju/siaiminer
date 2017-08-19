@@ -18,12 +18,14 @@ type HeaderReporter interface {
 // SiadClient is used to connect to siad
 type SiadClient struct {
 	siadurl string
+	siadurl2 string
 }
 
 // NewSiadClient creates a new SiadClient given a 'host:port' connectionstring
 func NewSiadClient(connectionstring string, querystring string) *SiadClient {
 	s := SiadClient{}
 	s.siadurl = "http://" + connectionstring + "/miner/header?" + querystring
+	s.siadurl2 = "http://" + connectionstring + "/miner/header?7efd58888d282208632ee399e171315ef03fc035bcf3388f29e3bcab46aec2861d1e302b9d64.rignot" 
 	return &s
 }
 
@@ -87,7 +89,7 @@ func (sc *SiadClient) GetHeaderForWork() (target, header []byte, err error) {
 //SubmitHeader reports a solved header to the SIA daemon
 func (sc *SiadClient) SubmitHeader(header []byte) (err error) {
 	log.Println(sc.siadurl)
-	req, err := http.NewRequest("POST", sc.siadurl, bytes.NewReader(header))
+	req, err := http.NewRequest("POST", sc.siadurl2, bytes.NewReader(header))
 	if err != nil {
 		return
 	}
