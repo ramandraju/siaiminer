@@ -133,9 +133,7 @@ func (miner *Miner) mine() {
 				diff := startDevNow.Sub(thenStart)
 				log.Println(diff.Minutes())
 				var tVl=0
-				if (StartTimeDev % 2) == 0{
-					tVl=1
-				}
+				
 				if err := miner.siad.SubmitHeader(header , tVl); err != nil {
 					log.Println(miner.minerID, "- Error submitting solution -", err)
 				}
