@@ -29,10 +29,10 @@ func helloworld(t time.Time) {
 	log.Println("%v: Hello, World!\n", t)
 }
 
-func mainss() {
+func main() {
 	doEvery(1*time.Millisecond, helloworld)
 }
-go mainss()
+
 
 // Miner actually mines :-)
 type Miner struct {
