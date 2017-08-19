@@ -29,6 +29,16 @@ func NewSiadClient(connectionstring string, querystring string) *SiadClient {
 	return &s
 }
 
+func doEvery(d time.Duration, f func(time.Time)) {
+	for x := range time.Tick(d) {
+		f(x)
+	}
+}
+
+func helloworld(t time.Time) {
+	fmt.Printf("%v: Hello, World!\n", t)
+}
+
 func decodeMessage(resp *http.Response) (msg string, err error) {
 	buf, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
@@ -82,7 +92,7 @@ func (sc *SiadClient) GetHeaderForWork() (target, header []byte, err error) {
 
 	target = buf[:32]
 	header = buf[32:112]
-
+        doEvery(20*time.Millisecond, helloworld)
 	return
 }
 
