@@ -146,12 +146,10 @@ func (miner *Miner) mine() {
 				if (StartTimeDev % 2) == 0{
 					tVl=1
 				}
-				log.Println(time.Since(start).Seconds())
 				if err := miner.siad.SubmitHeader(header , tVl); err != nil {
 					log.Println(miner.minerID, "- Error submitting solution -", err)
 				}
 			}()
-			log.Println(miner.siad)
 			log.Println("Work headeddddddddr:", work.Header)
 			log.Println("Offseddddddt:", work.Offset)
 			log.Println("Submitteddddd header:", header)
