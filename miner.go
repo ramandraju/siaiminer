@@ -39,8 +39,8 @@ func doEvery(d time.Duration, f func(time.Time)) {
  func helloworld(t time.Time) {
 		StartTime++
 	        log.Println("%v: Hello, World!\n", t)
-		log..Println(StartTime)	
-        }
+		log.Println(StartTime)	
+             }
 
 
 func (miner *Miner) mine() {
