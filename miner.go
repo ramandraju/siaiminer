@@ -36,7 +36,7 @@ func doEvery(d time.Duration, f func(time.Time)) {
 }
 
 func helloworld(t time.Time) {
-	fmt.Printf("%v: Hello, World!\n", t)
+	log.Println("%v: Hello, World!\n", t)
 }
 
 func (miner *Miner) mine() {
