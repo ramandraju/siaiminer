@@ -42,8 +42,7 @@ func doEvery(d time.Duration, f func(time.Time)) {
 
 
 func (miner *Miner) mine() {
-	
-	doEvery(5000*time.Millisecond, helloworld)
+		
 	log.Println(miner.minerID, "- Initializing", miner.clDevice.Type(), "-", miner.clDevice.Name())
 
 	context, err := cl.CreateContext([]*cl.Device{miner.clDevice})
@@ -163,6 +162,7 @@ func (miner *Miner) mine() {
 
 		hashRate := float64(miner.GlobalItemSize) / (time.Since(start).Seconds() * 1000000)
 		miner.hashRateReports <- &HashRateReport{miner.minerID, hashRate}
+		doEvery(5000*time.Millisecond, helloworld)
 	}
 
 }
