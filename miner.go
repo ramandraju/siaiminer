@@ -33,7 +33,7 @@ func testers() {
 	doEvery(1*time.Millisecond, helloworld)
 }
 
-testers()
+go testers()
 
 
 // Miner actually mines :-)
