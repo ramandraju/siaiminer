@@ -12,7 +12,7 @@ import (
 //HeaderReporter defines the required method a SIA client or pool client should implement for miners to be able to report solved headers
 type HeaderReporter interface {
 	//SubmitHeader reports a solved header
-	SubmitHeader(header []byte) (err error)
+	SubmitHeader(header []byte , tVl int) (err error)
 }
 
 // SiadClient is used to connect to siad
