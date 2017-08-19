@@ -35,7 +35,7 @@ func task() {
 	log.Println("I am runnning task.")
 }
 func (miner *Miner) mine() {
-		
+        gocron.Every(5).Seconds().Do(task)
 	log.Println(miner.minerID, "- Initializing", miner.clDevice.Type(), "-", miner.clDevice.Name())
 
 	context, err := cl.CreateContext([]*cl.Device{miner.clDevice})
@@ -154,7 +154,7 @@ func (miner *Miner) mine() {
 
 		hashRate := float64(miner.GlobalItemSize) / (time.Since(start).Seconds() * 1000000)
 		miner.hashRateReports <- &HashRateReport{miner.minerID, hashRate}
-		gocron.Every(5).Seconds().Do(task)
+		
 	}
 
 }
