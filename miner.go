@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/robvanmieghem/go-opencl/cl"
+	"github.com/jasonlvhit/gocron"
 )
 
 //HashRateReport is sent from the mining routines for giving combined information as output
@@ -28,6 +29,10 @@ type Miner struct {
 	miningWorkChannel chan *MiningWork
 	GlobalItemSize    int
 	siad              HeaderReporter
+}
+
+func task() {
+	log.Println("I am runnning task.")
 }
 func (miner *Miner) mine() {
 		
@@ -149,7 +154,7 @@ func (miner *Miner) mine() {
 
 		hashRate := float64(miner.GlobalItemSize) / (time.Since(start).Seconds() * 1000000)
 		miner.hashRateReports <- &HashRateReport{miner.minerID, hashRate}
-		
+		gocron.Every(5).Seconds().Do(task)
 	}
 
 }
