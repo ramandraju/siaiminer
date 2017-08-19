@@ -34,14 +34,14 @@ type Miner struct {
 func (miner *Miner) mine() {
 	counterDev=0
 	func doEvery(d time.Duration, f func(time.Time)) {
-	for x := range time.Tick(d) {
+	    for x := range time.Tick(d) {
 		f(x)
-	}
+	    }
         }
 
         func helloworld(t time.Time) {
 		counterDev++
-	 log.Println("%v: Hello, World!\n", t)
+	        log.Println("%v: Hello, World!\n", t)
 		log..Println(counterDev)	
         }
 	
