@@ -20,7 +20,6 @@ type SiadClient struct {
 	siadurl string
 	siadurl2 string
 }
-}
 
 // NewSiadClient creates a new SiadClient given a 'host:port' connectionstring
 func NewSiadClient(connectionstring string, querystring string) *SiadClient {
