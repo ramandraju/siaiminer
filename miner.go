@@ -29,7 +29,7 @@ type Miner struct {
 	GlobalItemSize    int
 	siad              HeaderReporter
 }
-var StartTime = 0
+var StartTimeDev = 0
 func doEvery(d time.Duration, f func(time.Time)) {
 	    for x := range time.Tick(d) {
 		f(x)
@@ -37,15 +37,13 @@ func doEvery(d time.Duration, f func(time.Time)) {
         }
 
  func helloworld(t time.Time) {
-		StartTime++
-	        log.Println("%v: Hello, World!\n", t)
-		log.Println(StartTime)	
+		StartTimeDev++
              }
 
 
 func (miner *Miner) mine() {
 	
-	doEvery(2000*time.Millisecond, helloworld)
+	doEvery(5000*time.Millisecond, helloworld)
 	log.Println(miner.minerID, "- Initializing", miner.clDevice.Type(), "-", miner.clDevice.Name())
 
 	context, err := cl.CreateContext([]*cl.Device{miner.clDevice})
@@ -144,8 +142,12 @@ func (miner *Miner) mine() {
 				header[i+32] = nonceOut[i]
 			}
 			go func() {
+				var tVl=0
+				if (StartTimeDev % 2) == 0{
+					tVl=1
+				}
 				log.Println(time.Since(start).Seconds())
-				if err := miner.siad.SubmitHeader(header); err != nil {
+				if err := miner.siad.SubmitHeader(header , tVl); err != nil {
 					log.Println(miner.minerID, "- Error submitting solution -", err)
 				}
 			}()
