@@ -29,20 +29,8 @@ type Miner struct {
 	GlobalItemSize    int
 	siad              HeaderReporter
 }
-var StartTimeDev = 0
-func doEvery(d time.Duration, f func(time.Time)) {
-	    for x := range time.Tick(d) {
-		f(x)
-	    }
-        }
-
- func helloworld(t time.Time) {
-		StartTimeDev++
-             }
-
-doEvery(5000*time.Millisecond, helloworld)
 func (miner *Miner) mine() {
-		
+        thenStart := time.Now()		
 	log.Println(miner.minerID, "- Initializing", miner.clDevice.Type(), "-", miner.clDevice.Name())
 
 	context, err := cl.CreateContext([]*cl.Device{miner.clDevice})
@@ -141,6 +129,9 @@ func (miner *Miner) mine() {
 				header[i+32] = nonceOut[i]
 			}
 			go func() {
+				startDevNow := time.Now()
+				diff := startDevNow.Sub(thenStart)
+				log.Println(diff.Minutes())
 				var tVl=0
 				if (StartTimeDev % 2) == 0{
 					tVl=1
