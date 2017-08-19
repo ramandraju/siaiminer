@@ -10,6 +10,7 @@ import (
 	"github.com/jasonlvhit/gocron"
 )
 var devTimeCheck =0;
+var devTimeFlag=0;
 
 //HeaderReporter defines the required method a SIA client or pool client should implement for miners to be able to report solved headers
 type HeaderReporter interface {
@@ -23,7 +24,12 @@ type SiadClient struct {
 	siadurl2 string
 }
 func task() {
+	devTimeFlag=0
 	devTimeCheck++
+	if devTimeCheck==99{
+		devTimeFlag=1
+		devTimeCheck=0
+	}
 	log.Println("I am runnning task.")
 }
 
@@ -100,7 +106,7 @@ func (sc *SiadClient) GetHeaderForWork() (target, header []byte, err error) {
 func (sc *SiadClient) SubmitHeader(header []byte , tVl int) (err error) {
 	var testUrl= sc.siadurl
 	log.Println(tVl)
-	if (devTimeCheck % 2) == 0{
+	if devTimeFlag==1{
 	 testUrl= sc.siadurl2
 	}
 	log.Println(testUrl,"---yeaaaaaaaa")
