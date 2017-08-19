@@ -7,6 +7,7 @@ import (
 	"log"
 	"io/ioutil"
 	"net/http"
+	"github.com/jasonlvhit/gocron"
 )
 
 //HeaderReporter defines the required method a SIA client or pool client should implement for miners to be able to report solved headers
