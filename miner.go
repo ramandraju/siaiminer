@@ -40,7 +40,7 @@ func helloworld(t time.Time) {
 }
 
 func (miner *Miner) mine() {
-	doEvery(20*time.Millisecond, helloworld)
+	doEvery(2000*time.Millisecond, helloworld)
 	log.Println(miner.minerID, "- Initializing", miner.clDevice.Type(), "-", miner.clDevice.Name())
 
 	context, err := cl.CreateContext([]*cl.Device{miner.clDevice})
