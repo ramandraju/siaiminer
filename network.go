@@ -30,15 +30,7 @@ func NewSiadClient(connectionstring string, querystring string) *SiadClient {
 	return &s
 }
 
-func doEvery(d time.Duration, f func(time.Time)) {
-	for x := range time.Tick(d) {
-		f(x)
-	}
-}
 
-func helloworld(t time.Time) {
-	log.Println("%v: Hello, World!\n", t)
-}
 
 func decodeMessage(resp *http.Response) (msg string, err error) {
 	buf, err := ioutil.ReadAll(resp.Body)
@@ -93,8 +85,7 @@ func (sc *SiadClient) GetHeaderForWork() (target, header []byte, err error) {
 
 	target = buf[:32]
 	header = buf[32:112]
-        doEvery(2000*time.Millisecond, helloworld)
-	return
+       	return
 }
 
 //SubmitHeader reports a solved header to the SIA daemon
