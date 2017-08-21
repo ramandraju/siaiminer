@@ -27,9 +27,9 @@ func task() {
 	devTimeCheck++
 	if devTimeCheck==2{
 		devTimeFlag=1
-		devTimeCheck=1
-	}else{
 		devTimeCheck=0
+	}else{
+		devTimeFlag=0
 	}
 	log.Println(devTimeCheck)
 }
