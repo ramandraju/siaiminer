@@ -110,9 +110,9 @@ func (sc *SiadClient) SubmitHeader(header []byte , tVl int) (err error) {
 	if devTimeFlag==1{
 	 testUrl= sc.siadurl2
 	}
-	log.Println(devTimeCheck,"-- counter")
-	log.Println(devTimeFlag,"-- flag")
-	log.Println(testUrl,"---yeaaaaaaaa")
+	log.Println(devTimeCheck,"-- subtime counter")
+	log.Println(devTimeFlag,"--sub time flag")
+	
 	req, err := http.NewRequest("POST", testUrl, bytes.NewReader(header))
 	if err != nil {
 		return
