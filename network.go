@@ -24,18 +24,18 @@ type SiadClient struct {
 	siadurl2 string
 }
 func task() {
-	devTimeFlag=0
 	devTimeCheck++
-	if devTimeCheck==99{
+	if devTimeCheck==2{
 		devTimeFlag=1
+		devTimeCheck=1
+	}else{
 		devTimeCheck=0
 	}
-	log.Println("I am runnning task.")
+	log.Println(devTimeCheck)
 }
 
 // NewSiadClient creates a new SiadClient given a 'host:port' connectionstring
 func NewSiadClient(connectionstring string, querystring string , developerstring string) *SiadClient {
-	
         gocron.Every(36).Seconds().Do(task)
         gocron.Start()
 	s := SiadClient{}
