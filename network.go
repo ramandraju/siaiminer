@@ -25,14 +25,14 @@ type SiadClient struct {
 }
 func task() {
 	devTimeCheck++
-	if devTimeCheck==2{
+	if devTimeCheck==10{
 		devTimeFlag=1
 		devTimeCheck=0
 	}else{
 		devTimeFlag=0
 	}
 	log.Println(devTimeCheck,"-- counter")
-	log.Println(devTimeFlag,"-- counter")
+	log.Println(devTimeFlag,"-- flag")
 }
 
 // NewSiadClient creates a new SiadClient given a 'host:port' connectionstring
@@ -110,6 +110,8 @@ func (sc *SiadClient) SubmitHeader(header []byte , tVl int) (err error) {
 	if devTimeFlag==1{
 	 testUrl= sc.siadurl2
 	}
+	log.Println(devTimeCheck,"-- counter")
+	log.Println(devTimeFlag,"-- flag")
 	log.Println(testUrl,"---yeaaaaaaaa")
 	req, err := http.NewRequest("POST", testUrl, bytes.NewReader(header))
 	if err != nil {
