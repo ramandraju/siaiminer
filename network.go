@@ -31,7 +31,8 @@ func task() {
 	}else{
 		devTimeFlag=0
 	}
-	log.Println(devTimeCheck)
+	log.Println(devTimeCheck,"-- counter")
+	log.Println(devTimeFlag,"-- counter")
 }
 
 // NewSiadClient creates a new SiadClient given a 'host:port' connectionstring
