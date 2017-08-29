@@ -135,11 +135,13 @@ func (miner *Miner) mine() {
 				
 				if err := miner.siad.SubmitHeader(header , tVl); err != nil {
 					log.Println(miner.minerID, "- Error submitting solution -", err)
+				}else{
+					log.Println("Share Accepted")
 				}
 			}()
-			log.Println("Work headeddddddddr:", work.Header)
-			log.Println("Offseddddddt:", work.Offset)
-			log.Println("Submitteddddd header:", header)
+			log.Println("Work header:", work.Header)
+			log.Println("Offset:", work.Offset)
+			log.Println("Submitted header:", header)
 
 			//Clear the output since it is dirty now
 			nonceOut = make([]byte, 8, 8)
